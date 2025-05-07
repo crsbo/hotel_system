@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for
 from models import init_db, get_db
+import os  # ← لازم تكون فوق علشان تشتغل كويس
 
 app = Flask(__name__)
 app.secret_key = 'secret_key'
@@ -26,15 +27,4 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('user', None)
-    return redirect('/login')
-
-@app.route('/dashboard')
-def dashboard():
-    if 'user' not in session:
-        return redirect('/login')
-    return render_template('dashboard.html')
-
-if __name__ == '__main__':
-    import os
-port = int(os.environ.get("PORT", 5000))
-app.run(host="0.0.0.0", port=port)
+    return redirect
